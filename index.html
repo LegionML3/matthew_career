@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Career: AI Engineer</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    // Tailwind config
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            neon: {
+              indigo: '#7c4dff',
+              emerald: '#10b981',
+              violet: '#a77bff',
+            },
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%':       { transform: 'translateY(-10px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4' },
+              '50%':       { opacity: '0.8' },
+            },
+          },
+          animation: {
+            float:      'float 6s ease-in-out infinite',
+            pulseGlow:  'pulseGlow 3s ease-in-out infinite',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #0c0e1a;
+      color: #eef0f8;
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Custom scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0c0e1a; }
+    ::-webkit-scrollbar-thumb { background: #7c4dff; border-radius: 3px; }
+
+    /* ── Glassmorphism ── */
+    .glass {
+      background: rgba(30, 33, 55, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-strong {
+      background: rgba(30, 33, 55, 0.78);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    /* ── Glow shadows ── */
+    .glow-indigo  { box-shadow: 0 0 30px rgba(124,77,255,0.15), 0 0 60px rgba(124,77,255,0.05); }
+    .glow-emerald { box-shadow: 0 0 30px rgba(16,185,129,0.15), 0 0 60px rgba(16,185,129,0.05); }
+    .glow-violet  { box-shadow: 0 0 30px rgba(167,119,255,0.15), 0 0 60px rgba(167,119,255,0.05); }
+
+    /* ── Gradient text ── */
+    .text-gradient-indigo {
+      background: linear-gradient(135deg, #7c4dff, #b47cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .text-gradient-emerald {
+      background: linear-gradient(135deg, #10b981, #6ee7b7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .text-gradient-violet {
+      background: linear-gradient(135deg, #a77bff, #e0c3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Background grid ── */
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ── Card hover lift ── */
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(124,77,255,0.12);
+    }
+
+    /* ── Image zoom on hover ── */
+    .img-zoom { overflow: hidden; }
+    .img-zoom img { transition: transform 0.7s ease; }
+    .img-zoom:hover img { transform: scale(1.05); }
+
+    /* ── Scroll-reveal (JS-driven) ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── Delay helpers ── */
+    .delay-100 { transition-delay: 0.1s; }
+    .delay-200 { transition-delay: 0.2s; }
+    .delay-300 { transition-delay: 0.3s; }
+    .delay-400 { transition-delay: 0.4s; }
+
+    /* ── Blobs (background glows) ── */
+    .blob {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+
+    /* ── Muted foreground color ── */
+    .text-muted { color: #7a80a0; }
+
+    /* ── Section separator ── */
+    .section-label {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #7c4dff;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Mono placeholder text ── */
+    .placeholder-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #7a80a0;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      line-height: 1.6;
+    }
+
+    /* ── Timeline line ── */
+    .timeline-line {
+      position: absolute;
+      left: 1.5rem;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(124,77,255,0.5), rgba(16,185,129,0.3), transparent);
+    }
+    @media (min-width: 768px) {
+      .timeline-line { left: 2rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
+             style="background:rgba(124,77,255,0.15); border:1px solid rgba(124,77,255,0.3);">
+          <!-- Brain icon (SVG) -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+               fill="none" stroke="#7c4dff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
+          </svg>
+        </div>
+        <span style="font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;">
+          Future Career: <span class="text-gradient-indigo">AI Engineer</span>
+        </span>
+      </a>
+
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="#overview"  class="px-4 py-2 text-sm font-medium text-muted rounded-lg hover:text-white transition-all duration-300" style="hover:background:rgba(255,255,255,0.05)">Overview</a>
+        <a href="#market"    class="px-4 py-2 text-sm font-medium text-muted rounded-lg hover:text-white transition-all duration-300">Market</a>
+        <a href="#pathways"  class="px-4 py-2 text-sm font-medium text-muted rounded-lg hover:text-white transition-all duration-300">Pathways</a>
+        <a href="#timeline"  class="px-4 py-2 text-sm font-medium text-muted rounded-lg hover:text-white transition-all duration-300">Timeline</a>
+      </div>
+
+      <!-- Mobile toggle -->
+      <button id="mobile-toggle" class="md:hidden p-2 rounded-lg text-muted" onclick="toggleMobile()">
+        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+        </svg>
+        <svg id="icon-x" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+          <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden glass-strong" style="border-top:1px solid rgba(255,255,255,0.05);">
+    <div class="px-6 py-4 space-y-1">
+      <a href="#overview" onclick="closeMobile()" class="block px-4 py-3 text-sm font-medium text-muted hover:text-white rounded-lg transition-all">Overview</a>
+      <a href="#market"   onclick="closeMobile()" class="block px-4 py-3 text-sm font-medium text-muted hover:text-white rounded-lg transition-all">Market</a>
+      <a href="#pathways" onclick="closeMobile()" class="block px-4 py-3 text-sm font-medium text-muted hover:text-white rounded-lg transition-all">Pathways</a>
+      <a href="#timeline" onclick="closeMobile()" class="block px-4 py-3 text-sm font-medium text-muted hover:text-white rounded-lg transition-all">Timeline</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════════════ -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+  <!-- Background blobs -->
+  <div class="blob" style="top:20%;left:20%;width:500px;height:500px;background:rgba(124,77,255,0.07);animation:pulseGlow 3s ease-in-out infinite;"></div>
+  <div class="blob" style="bottom:20%;right:20%;width:400px;height:400px;background:rgba(16,185,129,0.05);animation:pulseGlow 3s ease-in-out infinite;animation-delay:1.5s;"></div>
+  <div class="blob" style="top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:rgba(167,119,255,0.04);"></div>
+
+  <!-- Grid overlay -->
+  <div class="absolute inset-0 bg-grid opacity-5"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-5xl mx-auto px-6 text-center
+              animate__animated animate__fadeInUp animate__faster">
+
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
+         style="border:1px solid rgba(124,77,255,0.2);">
+      <!-- Sparkles icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+           fill="none" stroke="#7c4dff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+        <path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>
+      </svg>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#7c4dff;">
+        Career Research Assignment
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="font-black tracking-tight leading-none mb-6"
+        style="font-size:clamp(3.5rem,10vw,7rem);">
+      <span>AI</span><br />
+      <span class="text-gradient-indigo">Engineer</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-muted mb-10 font-light leading-relaxed max-w-2xl mx-auto"
+       style="font-size:1.1rem;">
+      [Insert Assignment Subtitle / Course Name / Student Name Here]
+    </p>
+
+    <!-- Hero image -->
+    <div class="max-w-3xl mx-auto mb-12 img-zoom rounded-2xl"
+         style="border:1px solid rgba(124,77,255,0.2);">
+      <div class="relative">
+        <img src="https://media.base44.com/images/public/6a0d3de6c581d8ae83abd922/8a119dda3_generated_image.png"
+             alt="Neural network visualization"
+             class="w-full object-cover rounded-2xl" />
+        <div class="absolute inset-0 rounded-2xl"
+             style="background:linear-gradient(to top,rgba(12,14,26,0.55),transparent);"></div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <a href="#overview" class="inline-flex flex-col items-center gap-2 text-muted hover:text-white transition-colors">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;">
+        Scroll Down
+      </span>
+      <!-- ChevronDown -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           class="animate-bounce">
+        <path d="m6 9 6 6 6-6"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     SECTION 01 — OVERVIEW
+════════════════════════════════════════════ -->
+<section id="overview" class="relative py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+    <!-- Section header -->
+    <div class="text-center mb-16 reveal">
+      <span class="section-label">Section 01</span>
+      <h2 class="text-gradient-indigo font-extrabold tracking-tight mb-4"
+          style="font-size:clamp(2rem,5vw,3.5rem);">Overview</h2>
+      <p class="text-muted max-w-xl mx-auto" style="font-size:0.95rem;line-height:1.7;">
+        A deep dive into the role, responsibilities, and requirements of an AI Engineer.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+
+      <!-- Left column -->
+      <div class="space-y-6">
+
+        <!-- Duties card -->
+        <div class="glass rounded-2xl p-6 md:p-8 glow-indigo card-hover reveal delay-100">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(124,77,255,0.15);border:1px solid rgba(124,77,255,0.25);">
+              <!-- Briefcase -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                   fill="none" stroke="#7c4dff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <h3 style="font-size:1.05rem;font-weight:700;">Basic Duties &amp; Responsibilities</h3>
+          </div>
+          <div class="space-y-3">
+            <p class="placeholder-text">[Insert WorkBC Duties &amp; Responsibilities Here]</p>
+            <p class="placeholder-text">[Insert Additional Duties from Your Research Here]</p>
+          </div>
+        </div>
+
+        <!-- Requirements card -->
+        <div class="glass rounded-2xl p-6 md:p-8 glow-emerald card-hover reveal delay-200">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.25);">
+              <!-- GraduationCap -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                   fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <h3 style="font-size:1.05rem;font-weight:700;">Basic Requirements</h3>
+          </div>
+          <div class="space-y-3">
+            <p class="placeholder-text">[Insert Education Requirements Here — e.g., Bachelor's/Master's in CS, AI, or related field]</p>
+            <p class="placeholder-text">[Insert Technical Skills Requirements Here — e.g., Python, TensorFlow, PyTorch]</p>
+            <p class="placeholder-text">[Insert Certifications / Experience Requirements Here]</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right image -->
+      <div class="reveal-right delay-300">
+        <div class="img-zoom rounded-2xl sticky top-28"
+             style="border:1px solid rgba(124,77,255,0.2);">
+          <div class="relative">
+            <img src="https://media.base44.com/images/public/6a0d3de6c581d8ae83abd922/95e7efcfd_generated_image.png"
+                 alt="AI engineer at workstation"
+                 class="w-full object-cover rounded-2xl"
+                 style="min-height:420px;" />
+            <div class="absolute inset-0 rounded-2xl"
+                 style="background:linear-gradient(to top,rgba(12,14,26,0.45),transparent);"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     SECTION 02 — MARKET OUTLOOK
+════════════════════════════════════════════ -->
+<section id="market" class="relative py-24 md:py-32">
+  <div class="blob" style="top:50%;left:0;transform:translateY(-50%);width:400px;height:400px;background:rgba(16,185,129,0.05);"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-16 reveal">
+      <span class="section-label">Section 02</span>
+      <h2 class="text-gradient-emerald font-extrabold tracking-tight mb-4"
+          style="font-size:clamp(2rem,5vw,3.5rem);">Market Outlook</h2>
+      <p class="text-muted max-w-xl mx-auto" style="font-size:0.95rem;line-height:1.7;">
+        Exploring salary potential and job growth forecasts for AI Engineers in British Columbia.
+      </p>
+    </div>
+
+    <!-- Highlight cards -->
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+
+      <!-- Salary -->
+      <div class="glass rounded-2xl p-6 md:p-8 glow-emerald card-hover reveal delay-100">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#10b981;margin-bottom:0.5rem;">
+              Average Salary
+            </p>
+            <h3 class="text-gradient-emerald font-black"
+                style="font-size:clamp(2rem,5vw,3.2rem);line-height:1;">
+              [Insert Salary Here]
+            </h3>
+          </div>
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+               style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);">
+            <!-- DollarSign -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                 fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <p class="placeholder-text">[Insert Salary Range / Breakdown Details Here]</p>
+          <p class="placeholder-text">[Insert Source of Salary Data Here — e.g., WorkBC, Glassdoor]</p>
+        </div>
+      </div>
+
+      <!-- Growth -->
+      <div class="glass rounded-2xl p-6 md:p-8 glow-violet card-hover reveal delay-200">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#a77bff;margin-bottom:0.5rem;">
+              BC Job Growth Forecast
+            </p>
+            <h3 class="text-gradient-violet font-black"
+                style="font-size:clamp(2rem,5vw,3.2rem);line-height:1;">
+              [Insert Growth %]
+            </h3>
+          </div>
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+               style="background:rgba(167,119,255,0.1);border:1px solid rgba(167,119,255,0.2);">
+            <!-- TrendingUp -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                 fill="none" stroke="#a77bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+            </svg>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <p class="placeholder-text">[Insert BC Job Growth Forecast Details Here]</p>
+          <p class="placeholder-text">[Insert Projected Demand / Industry Trends Here]</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Chart image -->
+    <div class="img-zoom rounded-2xl reveal delay-300"
+         style="border:1px solid rgba(16,185,129,0.2);">
+      <div class="relative">
+        <img src="https://media.base44.com/images/public/6a0d3de6c581d8ae83abd922/54646e55f_generated_image.png"
+             alt="Labor market data visualization"
+             class="w-full object-cover rounded-2xl"
+             style="min-height:260px;" />
+        <div class="absolute inset-0 rounded-2xl"
+             style="background:linear-gradient(to top,rgba(12,14,26,0.45),transparent);"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     SECTION 03 — PATHWAYS
+════════════════════════════════════════════ -->
+<section id="pathways" class="relative py-24 md:py-32">
+  <div class="blob" style="top:0;right:0;width:350px;height:350px;background:rgba(167,119,255,0.05);"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-16 reveal">
+      <span class="section-label">Section 03</span>
+      <h2 class="text-gradient-violet font-extrabold tracking-tight mb-4"
+          style="font-size:clamp(2rem,5vw,3.5rem);">Pathways</h2>
+      <p class="text-muted max-w-xl mx-auto" style="font-size:0.95rem;line-height:1.7;">
+        Skills, volunteering, and high school courses that pave the way to an AI Engineering career.
+      </p>
+    </div>
+
+    <!-- 3-column grid -->
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <!-- Col 1 — Skills -->
+      <div class="glass rounded-2xl p-6 md:p-8 glow-indigo card-hover reveal delay-100">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+               style="background:rgba(124,77,255,0.15);border:1px solid rgba(124,77,255,0.25);">
+            <!-- Lightbulb -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                 fill="none" stroke="#7c4dff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+              <path d="M9 18h6"/><path d="M10 22h4"/>
+            </svg>
+          </div>
+          <h3 style="font-size:0.95rem;font-weight:700;line-height:1.3;">Personal Skills &amp; Learning Styles</h3>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#7c4dff;"></div>
+            <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.6;">
+              [Insert Your Top Personal Skills Here — e.g., analytical thinking, problem-solving]
+            </p>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#7c4dff;"></div>
+            <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.6;">
+              [Insert Your Preferred Learning Styles Here — e.g., visual, hands-on]
+            </p>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#7c4dff;"></div>
+            <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.6;">
+              [Insert How These Skills Align with AI Engineering Here]
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Col 2 — Volunteering -->
+      <div class="glass rounded-2xl p-6 md:p-8 glow-emerald card-hover reveal delay-200">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+               style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.25);">
+            <!-- Heart -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                 fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+          </div>
+          <h3 style="font-size:0.95rem;font-weight:700;line-height:1.3;">Community Volunteer Opportunities</h3>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#10b981;"></div>
+            <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.6;">
+              [Insert Volunteer Opportunity #1 Here — e.g., coding workshops for youth]
+            </p>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#10b981;"></div>
+            <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.6;">
+              [Insert Volunteer Opportunity #2 Here — e.g., tech mentorship programs]
+            </p>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#10b981;"></div>
+            <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.6;">
+              [Insert How Volunteering Connects to Your Career Goals Here]
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Col 3 — High School Courses -->
+      <div class="glass rounded-2xl p-6 md:p-8 glow-violet card-hover reveal delay-300">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+               style="background:rgba(167,119,255,0.15);border:1px solid rgba(167,119,255,0.25);">
+            <!-- BookOpen -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                 fill="none" stroke="#a77bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <h3 style="font-size:0.95rem;font-weight:700;line-height:1.3;">BC New Curriculum High School Courses</h3>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#a77bff;"></div>
+            <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.6;">
+              [Insert High School Courses Here — e.g., Computer Science 11/12, Pre-Calculus 12]
+            </p>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#a77bff;"></div>
+            <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.6;">
+              [Insert Elective Courses Here — e.g., Digital Communications, Physics 12]
+            </p>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#a77bff;"></div>
+            <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.6;">
+              [Insert How These Courses Prepare You for Post-Secondary Here]
+            </p>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     SECTION 04 — TIMELINE
+════════════════════════════════════════════ -->
+<section id="timeline" class="relative py-24 md:py-32">
+  <div class="blob" style="bottom:0;left:50%;transform:translateX(-50%);width:500px;height:500px;background:rgba(124,77,255,0.05);"></div>
+
+  <div class="max-w-3xl mx-auto px-6 lg:px-8 relative z-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-16 reveal">
+      <span class="section-label">Section 04</span>
+      <h2 class="text-gradient-indigo font-extrabold tracking-tight mb-4"
+          style="font-size:clamp(2rem,5vw,3.5rem);">Timeline</h2>
+      <p class="text-muted max-w-xl mx-auto" style="font-size:0.95rem;line-height:1.7;">
+        Mapping the journey from today to a career in AI Engineering.
+      </p>
+    </div>
+
+    <!-- Vertical timeline -->
+    <div class="relative">
+      <div class="timeline-line"></div>
+
+      <div class="space-y-16">
+
+        <!-- Milestone 1: Short-Term -->
+        <div class="relative pl-16 md:pl-20 reveal delay-100">
+          <!-- Node -->
+          <div class="absolute flex items-center justify-center rounded-full"
+               style="left:0.75rem;top:0.25rem;width:1.5rem;height:1.5rem;background:rgba(124,77,255,0.15);border:2px solid #7c4dff;">
+            <div class="rounded-full" style="width:0.5rem;height:0.5rem;background:#7c4dff;"></div>
+          </div>
+          <!-- Card -->
+          <div class="glass rounded-2xl p-6 md:p-8 card-hover">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-lg flex items-center justify-center"
+                   style="background:rgba(124,77,255,0.15);">
+                <!-- Rocket -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                     fill="none" stroke="#7c4dff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                  <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+                </svg>
+              </div>
+              <div>
+                <h3 style="font-size:1.05rem;font-weight:700;">Short-Term Goal</h3>
+                <span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.1rem 0.5rem;border-radius:9999px;background:rgba(124,77,255,0.1);border:1px solid rgba(124,77,255,0.25);color:#7c4dff;">
+                  Next 6 Months
+                </span>
+              </div>
+            </div>
+            <ul class="space-y-3">
+              <li class="placeholder-text" style="border-color:rgba(124,77,255,0.15);">
+                [Insert Short-Term Goal #1 Here — e.g., Complete an online Python course]
+              </li>
+              <li class="placeholder-text" style="border-color:rgba(124,77,255,0.15);">
+                [Insert Short-Term Goal #2 Here — e.g., Build a personal AI project]
+              </li>
+              <li class="placeholder-text" style="border-color:rgba(124,77,255,0.15);">
+                [Insert Action Steps to Achieve These Goals Here]
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Milestone 2: Long-Term -->
+        <div class="relative pl-16 md:pl-20 reveal delay-200">
+          <!-- Node -->
+          <div class="absolute flex items-center justify-center rounded-full"
+               style="left:0.75rem;top:0.25rem;width:1.5rem;height:1.5rem;background:rgba(16,185,129,0.15);border:2px solid #10b981;">
+            <div class="rounded-full" style="width:0.5rem;height:0.5rem;background:#10b981;"></div>
+          </div>
+          <!-- Card -->
+          <div class="glass rounded-2xl p-6 md:p-8 card-hover">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-lg flex items-center justify-center"
+                   style="background:rgba(16,185,129,0.15);">
+                <!-- Target -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                     fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                </svg>
+              </div>
+              <div>
+                <h3 style="font-size:1.05rem;font-weight:700;">Long-Term Goal</h3>
+                <span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.1rem 0.5rem;border-radius:9999px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);color:#10b981;">
+                  6 Months — 2 Years
+                </span>
+              </div>
+            </div>
+            <ul class="space-y-3">
+              <li class="placeholder-text" style="border-color:rgba(16,185,129,0.15);">
+                [Insert Long-Term Goal #1 Here — e.g., Enroll in a CS program at university]
+              </li>
+              <li class="placeholder-text" style="border-color:rgba(16,185,129,0.15);">
+                [Insert Long-Term Goal #2 Here — e.g., Secure an AI internship or co-op]
+              </li>
+              <li class="placeholder-text" style="border-color:rgba(16,185,129,0.15);">
+                [Insert Milestones / Checkpoints Along the Way Here]
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer style="border-top:1px solid rgba(255,255,255,0.06);padding:3rem 0;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+             style="background:rgba(124,77,255,0.15);border:1px solid rgba(124,77,255,0.25);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="#7c4dff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
+          </svg>
+        </div>
+        <span class="text-muted" style="font-size:0.8rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">
+          Future Career: AI Engineer
+        </span>
+      </div>
+      <p class="text-muted" style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;">
+        [Insert Your Name] · [Insert Course Name] · [Insert Date]
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+<script>
+  /* ── Navbar scroll glass effect ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      navbar.classList.add('glass-strong', 'shadow-lg');
+    } else {
+      navbar.classList.remove('glass-strong', 'shadow-lg');
+    }
+  });
+
+  /* ── Mobile menu ── */
+  function toggleMobile() {
+    const menu = document.getElementById('mobile-menu');
+    const iconMenu = document.getElementById('icon-menu');
+    const iconX    = document.getElementById('icon-x');
+    const isHidden = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden', !isHidden);
+    iconMenu.classList.toggle('hidden', isHidden);
+    iconX.classList.toggle('hidden', !isHidden);
+  }
+  function closeMobile() {
+    document.getElementById('mobile-menu').classList.add('hidden');
+    document.getElementById('icon-menu').classList.remove('hidden');
+    document.getElementById('icon-x').classList.add('hidden');
+  }
+
+  /* ── Scroll-reveal (IntersectionObserver) ── */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '-40px' });
+
+  revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
